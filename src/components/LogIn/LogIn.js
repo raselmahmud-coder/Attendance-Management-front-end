@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LogIn = () => {
   const navigate = useNavigate();
-
+  const [spinner, setSpinner] = useState(false);
   const handleForm = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -16,30 +16,35 @@ const LogIn = () => {
         toastId: "registration",
       });
     } else {
-      fetch(`https://student-crud-rm.herokuapp.com/user/login`, {
-        method: "post",
+      fetch(`http://localhost:5000/user-login`, {
+        method: "get",
         headers: {
           "Content-Type": "application/json",
+          data: JSON.stringify({
+            email,
+            password,
+          }),
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
       })
-        .then((res) => res.json())
         .then((data) => {
-          console.log(data.token);
-          if (data.token) {
-            localStorage.setItem("access_token", JSON.stringify(data.token));
-            navigate("/");
+          if (data.status === 200) {
             toast.success("you have logged in", {
               toastId: "login",
             });
             e.target.reset();
+            return data.json();
           } else {
             toast.error("user not found", {
               toastId: "not-f",
             });
+          }
+        })
+        .then((result) => {
+          localStorage.setItem("access_token", result.token);
+          if (result.role === "student") {
+            navigate("/student");
+          } else {
+            navigate("/teacher");
           }
         });
     }
@@ -67,9 +72,12 @@ const LogIn = () => {
             Forget Password?
           </Link>
           <input
+            disabled={spinner}
+            value={spinner ? "Loading..." : "Login"}
             type="submit"
-            value="Login"
-            className="block btn-accent mx-auto w-full py-2 rounded-lg cursor-pointer uppercase"
+            className={`${
+              spinner && "cursor-wait"
+            } block btn-accent mx-auto w-full py-2 rounded-lg cursor-pointer uppercase`}
           />
           <div className="text-center my-2">
             <Link to={"/registration"} className="text-primary">

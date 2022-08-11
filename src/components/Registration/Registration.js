@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Registration = () => {
   const navigate = useNavigate();
+  const [spinner, setSpinner] = useState(false);
   const handleRegistration = (e) => {
+    setSpinner(true);
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
@@ -27,23 +29,21 @@ const Registration = () => {
           role,
           password,
         }),
-      })
-        .then((data) =>
-        {
-          console.log(data)
-          if (data.status ===200) {
+      }).then((data) => {
+        if (data.status === 200) {
+          setSpinner(false);
           navigate("/log-in");
-            toast.success("you have registered, please log in", {
-              toastId: "post",
-            });
-            e.target.reset();
-          } else {
-            
-            toast.error("There was an error! Please try again later", {
-              toastId: "post-error",
-            });
-          }
-        });
+          toast.success("you have registered, please log in", {
+            toastId: "post",
+          });
+          e.target.reset();
+        } else {
+          setSpinner(false);
+          toast.error("There was an error! Please try again later", {
+            toastId: "post-error",
+          });
+        }
+      });
     }
   };
   return (
@@ -68,7 +68,10 @@ const Registration = () => {
             required
           />
           <label htmlFor="role">Role</label>
-          <select name="role" className="input w-full border-gray-300 border-2 mb-2" required>
+          <select
+            name="role"
+            className="input w-full border-gray-300 border-2 mb-2"
+            required>
             <option value={"student"}>Student</option>
             <option value={"teacher"}>Teacher</option>
           </select>
@@ -82,9 +85,12 @@ const Registration = () => {
           />
 
           <input
+            disabled={spinner}
+            value={spinner ? "Loading..." : "Registration"}
             type="submit"
-            value="Registration"
-            className="block btn-accent mx-auto w-full my-2 py-2 rounded-lg cursor-pointer uppercase"
+            className={`${
+              spinner && "cursor-wait"
+            } block btn-accent mx-auto w-full my-2 py-2 rounded-lg cursor-pointer uppercase`}
           />
           <div className="text-center my-2">
             Already have an account?{" "}
