@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Student from "./components/student/Student";
 import Teacher from "./components/teacher/Teacher";
 import Attendance from "./components/teacher/Attendance";
+import Routine from "./components/teacher/Routine";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/student" element={<Student />} />
         <Route path="/teacher" element={<Teacher />}>
+          <Route path="" element={<Attendance />} />
           <Route path="attendance" element={<Attendance />} />
-          <Route path="routine" element={<Attendance />} />
+          <Route path="routine" element={<Routine />} />
         </Route>
         <Route
           path="*"

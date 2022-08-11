@@ -56,10 +56,10 @@ const Header = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{menu1}</ul>
         </div>
-        <div class="navbar-end">
+        <div className="navbar-end">
           <label
-            for="mobile-drawer"
-            class="btn btn-outline drawer-button lg:hidden">
+            htmlFor="mobile-drawer"
+            className="btn btn-outline drawer-button lg:hidden">
              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
