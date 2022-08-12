@@ -9,9 +9,6 @@ const Header = () => {
   };
   const menu1 = (
     <>
-      <li>
-        <Link to={"/"}>Home</Link>
-      </li>
       {
         <li>
           {token ? (

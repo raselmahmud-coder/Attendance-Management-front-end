@@ -18,7 +18,7 @@ const Registration = () => {
         toastId: "registration",
       });
     } else {
-      fetch(`http://localhost:5000/user`, {
+      fetch(`https://rm-attendance-management.herokuapp.com/user`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",

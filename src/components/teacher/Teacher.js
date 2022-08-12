@@ -8,7 +8,6 @@ const Teacher = () => {
       <h1 className="text-3xl text-center capitalize my-4">
         welcome Teacher dashboard
       </h1>
-      {/* <div className="grid grid-cols-1 lg:grid-cols-5"> */}
         <div className="drawer drawer-mobile">
           <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
           <div className="p-4 drawer-content w-full">
@@ -32,11 +31,9 @@ const Teacher = () => {
             </ul>
           </div>
         </div>
-        {/* <div className="bg-red-300 lg:col-span-4">
-          
-        </div> */}
+        
       </>
-    // </div>
+   
   );
 };
 

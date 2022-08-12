@@ -8,6 +8,7 @@ import Student from "./components/student/Student";
 import Teacher from "./components/teacher/Teacher";
 import Attendance from "./components/teacher/Attendance";
 import Routine from "./components/teacher/Routine";
+import ShowTeacher from "./components/student/ShowTeacher";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
         <Route path="/" element={<LogIn />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/student" element={<Student />} />
+        <Route path="/student" element={<Student />}>
+          <Route path="" element={<ShowTeacher />} />
+        </Route>
         <Route path="/teacher" element={<Teacher />}>
           <Route path="" element={<Attendance />} />
           <Route path="attendance" element={<Attendance />} />

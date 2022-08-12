@@ -6,6 +6,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
   const handleForm = async (e) => {
+    setSpinner(true);
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -16,7 +17,7 @@ const LogIn = () => {
         toastId: "registration",
       });
     } else {
-      fetch(`http://localhost:5000/user-login`, {
+      fetch(`https://rm-attendance-management.herokuapp.com/user-login`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
@@ -27,6 +28,7 @@ const LogIn = () => {
         },
       })
         .then((data) => {
+          setSpinner(false);
           if (data.status === 200) {
             toast.success("you have logged in", {
               toastId: "login",
